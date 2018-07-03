@@ -55,11 +55,11 @@
   </div>
 </template>
 <script>
-// import api from '../common/api.js'
+import api from '../common/api.js'
 import { cookie } from 'vux'
 // import {post} from '../common/http.js'
-// const apiUrl = api.apiData.api + 'merchant/'
-const apiUrl = 'http://192.168.1.118:8965/merchant/'
+const apiUrl = api.apiData.api + 'merchant/'
+// const apiUrl = 'http://192.168.1.118:8965/merchant/'
 export default {
   data () {
     return {
@@ -72,8 +72,8 @@ export default {
     }
   },
   created () {
-    // console.log('首页' + cookie.get('token'))
-    console.info(document.cookie)
+    console.log('首页' + cookie.get('token'))
+    // console.info(document.cookie)
     this.$http.get(apiUrl + 'home').then(({data}) => {
       if (data.code === 0) {
         let _data = data.data

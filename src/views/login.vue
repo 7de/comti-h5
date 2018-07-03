@@ -118,14 +118,12 @@ export default {
             if (data.code === 0) {
               let _token = data.data.rdSession
               console.log(cookie)
-              /* cookie.set('token', _token, {
-                domain: 'https://www.comtti.net/',
+              cookie.set('token', _token, {
                 path: '/',
                 expires: 30
-              }) */
+              })
               // document.cookie = 'token=' + _token
-              cookie.set('token', _token)
-              api.setCookie('token', _token, 200000)
+              // api.setCookie('token', _token, 200000)
               this.$router.push({
                 name: 'home'
               })

@@ -73,11 +73,11 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  const nextRoute = ['home']
+  const nextRoute = ['home', 'today-fee', 'total-fee', 'today-order', 'total-order', 'money-back', 'money-back-list', '/money', 'money-list']
   let isLogin = cookie.get('token')
   if (nextRoute.indexOf(to.name) >= 0) {
     if (!isLogin) {
-      console.log('what fuck')
+      console.log('没有token')
       router.push({ name: 'login' })
     }
   }
