@@ -8,7 +8,7 @@
     <div class="weui-cells" style="margin-top:0">
       <div class="weui-cell weui-cell_access">
         <div class="weui-cell__hd" style="position: relative;margin-right: 10px;">
-          <img src="../style/images/img.jpg" width="70" height="70" class="am-img-thumbnail am-circle"/>
+          <img src="../style/images/img.png" width="70" height="70" class="am-img-thumbnail am-circle"/>
         </div>
         <div class="weui-cell__bd">
           <p>{{userName}}</p>
@@ -42,14 +42,14 @@
           <i class="iconfont icon-tixian am-text-secondary"></i>
           <span>提现</span>
         </div>
-        <div class="weui-cell__ft am-text-xs zan-c-gray-dark">收益提现发起</div>
+        <div class="weui-cell__ft am-text-xs zan-c-gray-dark">查看提现记录</div>
       </router-link>
-      <router-link to="/money" class="weui-cell weui-cell_access">
+      <router-link to="/wallet" class="weui-cell weui-cell_access">
         <div class="weui-cell__bd">
           <i class="iconfont icon-money2 am-text-secondary"></i>
           <span>钱包</span>
         </div>
-        <div class="weui-cell__ft am-text-xs zan-c-gray-dark">查看收益明细</div>
+        <div class="weui-cell__ft"></div>
       </router-link>
     </div>
   </div>

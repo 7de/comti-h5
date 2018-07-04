@@ -119,8 +119,8 @@ export default {
               let _token = data.data.rdSession
               console.log(cookie)
               cookie.set('token', _token, {
-                path: '/',
-                expires: 30
+                path: '/official',
+                expires: 300
               })
               // document.cookie = 'token=' + _token
               // api.setCookie('token', _token, 200000)

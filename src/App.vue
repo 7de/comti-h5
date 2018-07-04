@@ -12,8 +12,8 @@ export default {
 
 <style lang="less">
 @import '~vux/src/styles/reset.less';
-@import './style/css/amazeui.min.css';
 @import './style/css/weui.min.css';
+@import './style/css/amazeui.min.css';
 @import './style/fonts/font.css';
 
 body {

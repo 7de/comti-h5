@@ -61,19 +61,19 @@ const router = new Router({
       component: resolve => { require(['@/views/money-back-list.vue'], resolve) }
     },
     {
-      path: '/money',
-      name: 'money',
-      component: resolve => { require(['@/views/money.vue'], resolve) }
+      path: '/wallet',
+      name: 'wallet',
+      component: resolve => { require(['@/views/wallet.vue'], resolve) }
     },
     {
-      path: '/money-list',
-      name: 'money-list',
-      component: resolve => { require(['@/views/money-list.vue'], resolve) }
+      path: '/wallet-list',
+      name: 'wallet-list',
+      component: resolve => { require(['@/views/wallet-list.vue'], resolve) }
     }
   ]
 })
 router.beforeEach((to, from, next) => {
-  const nextRoute = ['home', 'today-fee', 'total-fee', 'today-order', 'total-order', 'money-back', 'money-back-list', '/money', 'money-list']
+  const nextRoute = ['home', 'today-fee', 'total-fee', 'today-order', 'total-order', 'money-back', 'money-back-list', 'wallet', 'wallet-list']
   let isLogin = cookie.get('token')
   if (nextRoute.indexOf(to.name) >= 0) {
     if (!isLogin) {
