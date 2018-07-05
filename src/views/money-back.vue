@@ -70,7 +70,7 @@ export default {
     },
     // 提现
     onsubmit () {
-      if (!this.money || parseInt(this.money) === 0) {
+      if (!this.money || parseFloat(this.money) === 0) {
         this.$vux.toast.text('请输入金额')
         this.money = ''
       } else if (this.money > this.monayData.balance) {

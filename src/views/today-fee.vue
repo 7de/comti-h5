@@ -5,7 +5,7 @@
     <div class="weui-cells am-text-center am-padding-vertical" style="margin-top:0">
       <p class="am-text-default">今日收益：<em class="am-text-xl am-text-danger">￥{{fee}}</em></p>
     </div>
-    <div class="weui-cells" v-if="feeData.length" style="height:450px;">
+    <div class="weui-cells" v-if="feeData.length" :style="'height:'+(screenHeight-93)+'px'">
       <scroller :on-infinite="infinite" :on-refresh="refresh" ref="my_scroller">
         <div class="weui-cell" v-for="item in feeData" :key="item.id">
           <div class="weui-cell__bd  am-text-sm">
@@ -32,7 +32,8 @@ export default {
       fee: '',
       feeTotal: '',
       pageNum: 1,
-      pageSize: 7
+      pageSize: 7,
+      screenHeight: window.screen.availHeight
     }
   },
   created () {
@@ -44,20 +45,11 @@ export default {
       this.$http.get(feeUrl + 'earnList?start=' + page + '&size=' + this.pageSize).then(({data}) => {
         console.log(data)
         if (data.code === 0) {
-          /* const _len = data.data.list.length
-          if (_len < this.pageSize) {
-            this.pageNum = 1
-            fn(true)
-            return
-          } else {
-            if (fn) fn()
-          } */
           if (page === 1) {
             this.feeData = data.data.list   // 如果是想下滑动，刷新数据 就让items等于最新数据
           } else {
             this.feeData = this.feeData.concat(data.data.list) // 否则就把数据拼接
           }
-          console.log(this.feeData)
           this.fee = data.data.totalFee
           this.feeTotal = data.dataCount
         } else {
@@ -67,24 +59,24 @@ export default {
     },
     infinite (done) {
       let _len = this.feeData.length
-      if (this.pageNum !== 1 && _len === this.feeTotal) {
-        // this.$vux.toast.text('没有更多数据')
-        // this.$refs.myscroller.resize();
-        this.$refs.my_scroller.resize()
+      if (_len < this.pageSize) {
+        done(true)
+      } else if (this.pageNum !== 1 && _len === this.feeTotal) {
         this.$refs.my_scroller.finishInfinite(2)
       } else {
-        console.log('下拉加载')
-        this.pageNum++
-        this.getDate(this.pageNum)
-        this.$refs.my_scroller.finishInfinite(2)
+        setTimeout(() => {
+          this.pageNum++
+          this.getDate(this.pageNum)
+          done()
+        }, 1500)
       }
-      /* this.pageNum++
-      this.getDate(this.pageNum) */
     },
     refresh (done) { // 这是向下滑动的时候请求最新的数据
-      this.pageNum = 1
-      this.getDate(this.pageNum)
-      console.log(done())
+      setTimeout(() => {
+        this.pageNum = 0
+        this.getDate(this.pageNum + 1)
+        done()
+      }, 1500)
     }
   }
 }

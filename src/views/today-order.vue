@@ -5,8 +5,8 @@
     <div class="weui-cells am-text-center am-padding-vertical" style="margin-top:0">
       <p class="am-text-default">今日完成订单：<em class="am-text-xl am-text-success">{{order}}</em></p>
     </div>
-    <div class="weui-cells" v-if="orderData.length" style="height:450px;">
-      <scroller :on-infinite="infinite" ref="myscroller">
+    <div class="weui-cells" v-if="orderData.length" :style="'height:'+(screenHeight-93)+'px'">
+      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
         <div style="height: 1px;"></div>
         <div class="weui-cell" v-for="item in orderData" :key="item.id">
           <div class="weui-cell__bd  am-text-xs ">
@@ -35,7 +35,8 @@ export default {
       order: '',
       orderTotal: '',
       pageNum: 1,
-      pageSize: 3
+      pageSize: 3,
+      screenHeight: window.screen.availHeight
     }
   },
   created () {
@@ -47,9 +48,9 @@ export default {
       this.$http.get(orderUrl + 'orderList?start=' + page + '&size=' + this.pageSize).then(({data}) => {
         if (data.code === 0) {
           if (page === 1) {
-            this.orderData = data.data.list   // 如果是想下滑动，刷新数据 就让items等于最新数据
+            this.orderData = data.data.list
           } else {
-            this.orderData = this.orderData.concat(data.data.list) // 否则就把数据拼接
+            this.orderData = this.orderData.concat(data.data.list)
           }
           console.log(this.orderData)
           this.order = data.data.orderSum
@@ -62,18 +63,24 @@ export default {
     },
     infinite (done) {
       let _len = this.orderData.length
-      if (this.pageNum !== 1 && _len === this.orderTotal) {
-        this.$refs.myscroller.resize()
+      if (_len < this.pageSize) {
+        done(true)
+      } else if (this.pageNum !== 1 && _len === this.orderTotal) {
         this.$refs.myscroller.finishInfinite(2)
-        done()
       } else {
-        console.log('下拉加载')
-        this.pageNum++
-        console.log(this.pageNum)
-        this.getDate(this.pageNum)
-        done()
-        this.$refs.myscroller.finishInfinite(2)
+        setTimeout(() => {
+          this.pageNum++
+          this.getDate(this.pageNum)
+          done()
+        }, 1500)
       }
+    },
+    refresh (done) { // 这是向下滑动的时候请求最新的数据
+      setTimeout(() => {
+        this.pageNum = 0
+        this.getDate(this.pageNum + 1)
+        done()
+      }, 1500)
     },
     fotmatTime (str) {
       return api.fotmatTime(str)
