@@ -111,19 +111,21 @@ export default {
     onsubmit () {
       this.$validator.validate().then(result => {
         if (result) {
+          this.$vux.loading.show({
+            text: '登录中'
+          })
           this.$http.post(loginUrl + 'login', {
             loginname: this.phone,
             password: this.password
           }).then(({data}) => {
+            this.$vux.loading.hide()
             if (data.code === 0) {
               let _token = data.data.rdSession
               console.log(cookie)
               cookie.set('token', _token, {
-                path: '/official',
+                path: '/',
                 expires: 300
               })
-              // document.cookie = 'token=' + _token
-              // api.setCookie('token', _token, 200000)
               this.$router.push({
                 name: 'home'
               })

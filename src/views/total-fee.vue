@@ -27,10 +27,7 @@ export default {
       feeData: [],
       fee: '',
       pageNum: 1,
-      pageSize: 12,
-      lengthThreshold: 50, // 当滑动到距离低端50px时，更新数据
-      timeThreshold: 300,
-      promise: null
+      pageSize: 6
     }
   },
   created () {

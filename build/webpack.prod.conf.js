@@ -57,6 +57,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: process.env.NODE_ENV === 'testing'
         ? 'index.html'
         : config.build.index,
+      title: '康体佳充电云平台-客户服务中心',
       template: 'index.html',
       inject: true,
       minify: {

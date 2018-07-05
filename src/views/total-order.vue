@@ -27,7 +27,7 @@ export default {
       orderData: [],
       order: '',
       pageNum: 1,
-      pageSize: 12
+      pageSize: 6
     }
   },
   created () {

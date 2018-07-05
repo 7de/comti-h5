@@ -1,15 +1,20 @@
 export default {
   apiData: {
-    /* host: 'https://www.comtti.net/',
-    api: 'https://www.comtti.net/merchant/' */
+    host: 'https://b.comtti.net/',
+    api: 'https://b.comtti.net/merchant/'
     // 本地测试
-    host: 'http://localhost:8965/',
-    api: 'http://localhost:8965/'
+    /* host: 'http://localhost:8965/',
+    api: 'http://localhost:8965/' */
   },
   // 金额把分转换元为单位
   fotmatMoney (str) {
     let _money = (str / 100).toFixed(2)
     return _money
+  },
+  // 分钟转换小时
+  fotmatTime (str) {
+    let _time = (str / 60).toFixed(2)
+    return _time
   },
   setCookie (cname, cvalue, exdays) {
     const d = new Date()

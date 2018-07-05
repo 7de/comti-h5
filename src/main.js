@@ -2,21 +2,22 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import FastClick from 'fastclick'
-// import VueRouter from 'vue-router'
 import qs from 'qs'
-// import es6Promise from 'es6-promise'
 import router from './router/index'
-import { AjaxPlugin, ToastPlugin } from 'vux'
-// import { AjaxPlugin, ToastPlugin, cookie } from 'vux'
-// import { ToastPlugin } from 'vux'
+import { AjaxPlugin, ToastPlugin, Actionsheet, LoadingPlugin } from 'vux'
+import VueScroller from 'vue-scroller'
 import App from './App'
 
 import './common/validate.js'
-// import Home from './components/HelloFromVux'
 
 // Vue.use(VueRouter)
 Vue.use(AjaxPlugin)
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
+Vue.use(VueScroller)
+
+Vue.component('actionsheet', Actionsheet)
+
 AjaxPlugin.$http.defaults.withCredentials = true
 AjaxPlugin.$http.defaults.headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -37,17 +38,6 @@ AjaxPlugin.$http.interceptors.request.use((config) => {
 }, (error) => {
   return error
 })
-/*
-AjaxPlugin.$http.interceptors.response.use((config) => {
-  if (cookie.get('token')) {
-    console.log('请求头' + cookie.get('token'))
-    config.headers = {
-      'Cookies': 'token=' + cookie.get('token')
-    }
-  }
-}, (error) => {
-  return error
-}) */
 
 FastClick.attach(document.body)
 

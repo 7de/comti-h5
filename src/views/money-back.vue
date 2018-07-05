@@ -7,7 +7,7 @@
 }
 </style>
 <template>
-  <div class="page am-animation-slide-left">
+  <div class="page">
     <div class="weui-cells am-text-center am-padding am-nbfc" style="margin-top:0;">
       <div class="am-text-default am-inline">提现</div>
       <router-link to="/money-back-list" class="am-fr am-text-sm">提现记录</router-link>
@@ -16,8 +16,8 @@
       <div class="weui-cell">
         <div class="weui-cell__bd am-text-xs">
           <!-- <p class="am-text-sm">到账银行卡</p> -->
-          <p class="am-margin-top-xs"><em style="color:#666">到账银行：</em>{{monayData.bankDeposit}}</p>
-          <p class="am-margin-top-xs"><em style="color:#666">到账卡号：</em>{{monayData.bankAccount}}</p>
+          <p class="am-margin-top-xs"><em style="color:#666">开户银行：</em>{{monayData.bankDeposit}}</p>
+          <p class="am-margin-top-xs"><em style="color:#666">银行账号：</em>{{monayData.bankAccount}}</p>
           <p class="am-margin-top-xs" style="color:#999">3个工作日内到账</p>
         </div>
       </div>
@@ -38,6 +38,11 @@
     <div class="am-margin-horizontal am-margin-top-lg">
       <button type="button" class="am-btn am-btn-success am-round am-btn-block am-btn-l" @click="onsubmit">提现</button>
     </div>
+    <actionsheet v-model="showAction" :menus="showInfo" @on-click-menu-queren="showTip">
+      <p slot="header">
+        <span style="color:#666;font-size:14px;">是否继续提现？</span>
+      </p>
+    </actionsheet>
   </div>
 </template>
 <script>
@@ -48,7 +53,11 @@ export default {
   data () {
     return {
       monayData: {},
-      money: ''
+      money: '',
+      showAction: false,
+      showInfo: {
+        'queren': '确定'
+      }
     }
   },
   created () {
@@ -61,20 +70,13 @@ export default {
     },
     // 提现
     onsubmit () {
-      if (!this.money) {
+      if (!this.money || parseInt(this.money) === 0) {
         this.$vux.toast.text('请输入金额')
+        this.money = ''
+      } else if (this.money > this.monayData.balance) {
+        this.$vux.toast.text('您输入的金额大于余额，请重新输入')
       } else {
-        this.$http.post(moneyUrl + 'build', {
-          takeCashNum: this.money * 100
-        }).then(({data}) => {
-          if (data.code === 0) {
-            this.$vux.toast.text('提现成功')
-            this.money = ''
-            this.getInfo()
-          } else {
-            this.$vux.toast.text(data.msg)
-          }
-        })
+        this.showAction = true
       }
     },
     getInfo () {
@@ -82,6 +84,19 @@ export default {
         console.log(data)
         if (data.code === 0) {
           this.monayData = data.data
+        } else {
+          this.$vux.toast.text(data.msg)
+        }
+      })
+    },
+    showTip () {
+      this.$http.post(moneyUrl + 'build', {
+        takeCashNum: this.money * 100
+      }).then(({data}) => {
+        if (data.code === 0) {
+          this.$vux.toast.text('提现成功')
+          this.money = ''
+          this.getInfo()
         } else {
           this.$vux.toast.text(data.msg)
         }
