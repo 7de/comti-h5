@@ -2,7 +2,7 @@
 
 > 基于vue2.0 + webpack2.0 + vux2.9.2
 
-## 文档
+## VUX文档
 + [中文文档](https://vux.li/)
 + English(working)
 
