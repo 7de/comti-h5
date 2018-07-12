@@ -70,8 +70,12 @@ export default {
     },
     // 提现
     onsubmit () {
+      let _floatMoney = parseFloat(this.money).toFixed(2)
       if (!this.money || parseFloat(this.money) === 0) {
         this.$vux.toast.text('请输入金额')
+        this.money = ''
+      } else if (_floatMoney < 0.01) {
+        this.$vux.toast.text('金额小于0.01，请重新输入')
         this.money = ''
       } else if (this.money > this.monayData.balance) {
         this.$vux.toast.text('您输入的金额大于余额，请重新输入')

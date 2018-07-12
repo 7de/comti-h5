@@ -79,8 +79,8 @@ export default {
         let _data = data.data
         this.userName = _data.userName
         this.merchantName = _data.merchantName
-        this.todayFee = _data.todayFee
-        this.totalFee = _data.totalFee
+        this.todayFee = _data.todayFee.toFixed(2)
+        this.totalFee = _data.totalFee.toFixed(2)
         this.todayOrderSum = _data.todayOrderSum
         this.totalOrderSum = _data.totalOrderSum
       } else {

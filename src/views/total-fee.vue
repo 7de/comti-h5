@@ -3,7 +3,7 @@
 <template>
   <div class="page am-animation-slide-left">
     <div class="weui-cells am-text-center am-padding-vertical" style="margin-top:0">
-      <p class="am-text-default">总收益：<em class="am-text-xl am-text-danger">￥{{fee}}</em></p>
+      <p class="am-text-default">总收益：<em class="am-text-xl am-text-danger">￥{{fee?fee:'0.00'}}</em></p>
     </div>
     <div class="weui-cells" v-if="feeData.length">
       <div class="weui-cell" v-for="item in feeData" :key="item.id">

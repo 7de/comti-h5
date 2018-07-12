@@ -3,7 +3,7 @@
 <template>
   <div class="page am-animation-slide-left">
     <div class="weui-cells am-text-center am-padding-vertical" style="margin-top:0">
-      <p class="am-text-default">总订单：<em class="am-text-xl am-text-success">{{order}}</em></p>
+      <p class="am-text-default">总订单：<em class="am-text-xl am-text-success">{{order?order:0}}</em></p>
     </div>
     <div class="weui-cells" v-if="orderData.length">
       <div class="weui-cell" v-for="item in orderData" :key="item.id">

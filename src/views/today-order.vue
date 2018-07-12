@@ -3,7 +3,7 @@
 <template>
   <div class="page am-animation-slide-left">
     <div class="weui-cells am-text-center am-padding-vertical" style="margin-top:0">
-      <p class="am-text-default">今日完成订单：<em class="am-text-xl am-text-success">{{order}}</em></p>
+      <p class="am-text-default">今日完成订单：<em class="am-text-xl am-text-success">{{order?order:0}}</em></p>
     </div>
     <div class="weui-cells" v-if="orderData.length" :style="'height:'+(screenHeight-93)+'px'">
       <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
