@@ -73,7 +73,6 @@ export default {
   },
   created () {
     console.log('首页' + cookie.get('token'))
-    // console.info(document.cookie)
     this.$http.get(apiUrl + 'home').then(({data}) => {
       if (data.code === 0) {
         let _data = data.data
@@ -83,6 +82,8 @@ export default {
         this.totalFee = _data.totalFee.toFixed(2)
         this.todayOrderSum = _data.todayOrderSum
         this.totalOrderSum = _data.totalOrderSum
+      } else if (data.code === -100 || data.code === -1) {
+        this.$router.push({ name: 'login' })
       } else {
         this.$vux.toast.text(data.msg)
       }
